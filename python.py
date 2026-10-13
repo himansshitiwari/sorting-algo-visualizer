@@ -144,6 +144,7 @@ def generate_starting_list(n,min_val,max_val):
         lst.append(val)
 
     return lst
+
 def bubble_sort(draw_info,ascending = True):
     lst = draw_info.lst
     for i in range(len(lst)-1):
@@ -153,7 +154,7 @@ def bubble_sort(draw_info,ascending = True):
 
             if (num1>num2 and ascending) or (num1 < num2 and not ascending):
                 lst[j],lst[j + 1] = lst[j+1],lst[j]
-                draw_list(draw_info,{j:draw_info.GREEN,j+1: draw_info.RED})
+                draw_list(draw_info,{j:draw_info.GREEN,j+1: draw_info.RED},True)
                 yield True
     return lst
 
@@ -178,8 +179,13 @@ def main():
     while run:
         clock.tick(60)
 
-        draw(draw_info)
-        
+        if sorting:
+            try:
+                next(sorting_algorithm_generator)
+            except StopIteration:
+                sorting = False
+        else:
+            draw(draw_info)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
