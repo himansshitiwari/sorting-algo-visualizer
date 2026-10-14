@@ -7,13 +7,13 @@ class DrawInformation:
     WHITE = 255,255,255
     GREEN = 0,255,0
     RED = 255,0,0
-
-    BACKGROUND_COLOR = WHITE
+    LIGHT_PINK = 255,182,193
+    BACKGROUND_COLOR = LIGHT_PINK
 
     GRADIENTS = [
-        ( 128,128,128),
-        (160,160,160),
-        (192,192,192)
+         (255, 105, 145),  # Pink
+        (225, 75, 125),   # Rose pink
+        (190, 65, 105)    # Deep berry
     ]
     
     FONT = pygame.font.SysFont('comicsans',20)
@@ -28,6 +28,7 @@ class DrawInformation:
         self.height = height
 
         self.window = pygame.display.set_mode((width, height))
+        
         pygame.display.set_caption("Sorting Algorithm Visualization")
 
         self.set_list(lst)
@@ -49,7 +50,7 @@ class DrawInformation:
 
         self.start_x = self.SIDE_PAD // 2
 
-def draw(draw_info,):
+def draw(draw_info,sorting_algo_name):
     draw_info.window.fill(draw_info.BACKGROUND_COLOR)
 
     controls = draw_info.FONT.render(
@@ -164,14 +165,12 @@ def insertion_sort(draw_info, ascending=True):
     for i in range(1, len(lst)):
         current = lst[i]
         j = i - 1
-
         while j >= 0 and (
             (lst[j] > current) if ascending
             else (lst[j] < current)
         ):
             lst[j + 1] = lst[j]
             j -= 1
-
             draw_list(
                 draw_info,
                 {j + 1: draw_info.GREEN, j + 2: draw_info.RED},
